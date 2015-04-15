@@ -1,0 +1,7 @@
+{
+  "name": "mbte",
+  "version": "0.0.0",
+  "dependencies": {
+    "file-saver.js": "1.20150304.1"
+  }
+}
