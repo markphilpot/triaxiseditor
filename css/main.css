@@ -47,6 +47,30 @@
 #gain {
     left: 260px;
 }
+#treble {
+    left: 340px;
+}
+#middle {
+    left: 420px;
+}
+#bass {
+    left: 502px;
+}
+#lead1Drive {
+    left: 584px;
+}
+#lead2Drive {
+    left: 665px;
+}
+#master {
+    left: 746px;
+}
+#presence {
+    left: 827px;
+}
+#dVoice {
+    left: 908px;
+}
 
 .tube {
     border: 1px solid #fff;
@@ -73,4 +97,102 @@
 }
 #tube_rhyYellow.selected {
     background-color: #ffff00;
+}
+
+#tube_lead1Green {
+    top: 33px;
+    right: 140px;
+}
+#tube_lead1Green.selected {
+    background-color: greenyellow;
+}
+
+#tube_lead1Yellow {
+    top: 33px;
+    right: 126px;
+}
+#tube_lead1Yellow.selected {
+    background-color: #ffff00;
+}
+
+#tube_lead1Red {
+    top: 33px;
+    right: 112px;
+}
+#tube_lead1Red.selected {
+    background-color: red;
+}
+
+#tube_lead2Green {
+    top: 56px;
+    right: 140px;
+}
+#tube_lead2Green.selected {
+    background-color: greenyellow;
+}
+
+#tube_lead2Yellow {
+    top: 56px;
+    right: 126px;
+}
+#tube_lead2Yellow.selected {
+    background-color: #ffff00;
+}
+
+#tube_lead2Red {
+    top: 56px;
+    right: 112px;
+}
+#tube_lead2Red.selected {
+    background-color: red;
+}
+
+.switch {
+    border: 1px solid #fff;
+    border-radius: 5px;
+    position: absolute;
+    width: 10px;
+    height: 10px;
+}
+.switch:hover {
+    cursor: pointer;
+}
+.switch.selected {
+    background-color: greenyellow;
+}
+
+#switch1 {
+    top: 78px;
+    right: 140px;
+}
+#switch2 {
+    top: 78px;
+    right: 126px;
+}
+#switch3 {
+    top: 78px;
+    right: 112px;
+}
+#switch4 {
+    top: 78px;
+    right: 98px;
+}
+
+.fx {
+    border: 1px solid #fff;
+    border-radius: 5px;
+    position: absolute;
+    width: 10px;
+    height: 10px;
+}
+.fx:hover {
+    cursor: pointer;
+}
+.fx.selected {
+    background-color: greenyellow;
+}
+
+#fx {
+    top: 100px;
+    right: 97px;
 }

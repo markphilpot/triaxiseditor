@@ -26,17 +26,37 @@ var FxSwitches = function(){
 
     this.offset = 10;
     this.fxValue = this.FX_ON;
-    this.switchValue = this.SW_OFF;
+    this.switch1Value = this.SW_OFF;
+    this.switch2Value = this.SW_OFF;
+    this.switch3Value = this.SW_OFF;
+    this.switch4Value = this.SW_OFF;
 };
 FxSwitches.prototype.compile = function(){
-    return (this.fxValue | this.switchValue);
+    return (this.fxValue | this.switch1Value | this.switch2Value | this.switch3Value | this.switch4Value);
 };
 FxSwitches.prototype.init = function(arrayBuffer){
     var view = new DataView(arrayBuffer);
     var v = view.getUint8(0);
 
     this.fxValue = v & 0x01;
-    this.switchValue = v & 0x1E;
+    this.switch1Value = v & 0x02;
+    this.switch2Value = v & 0x04;
+    this.switch3Value = v & 0x08;
+    this.switch4Value = v & 0x10;
+};
+FxSwitches.prototype.setSwitch = function(val, on){
+    if(val == "SW1"){
+        this.switch1Value = on ? this.SW1 : this.SW_OFF;
+    } else if(val == "SW2"){
+        this.switch2Value = on ? this.SW2 : this.SW_OFF;
+    } else if(val == "SW3"){
+        this.switch3Value = on ? this.SW3 : this.SW_OFF;
+    } else if(val == "SW4"){
+        this.switch4Value = on ? this.SW4 : this.SW_OFF;
+    }
+};
+FxSwitches.prototype.setFx = function(on){
+    this.fxValue = on ? this.FX_ON : this.FX_OFF;
 };
 
 var TubeValue = function(value, display){
@@ -72,6 +92,14 @@ Tube.prototype.init = function(arrayBuffer){
         }
     });
 };
+Tube.prototype.setValue = function(val){
+    var self = this;
+    this.settings.forEach(function(t){
+        if(t.display == val){
+            self.value = t;
+        }
+    });
+};
 
 var SettingValue = function(value, display){
     this.value = value;
@@ -94,7 +122,7 @@ var Setting = function(offset){
     this.v75 = new SettingValue(0x0C, "7.5");
     this.v80 = new SettingValue(0x0D, "8.0");
     this.v90 = new SettingValue(0x0E, "9.0");
-    this.v100 = new SettingValue(0x0F, "10.0");
+    this.v100 = new SettingValue(0x0F, "10");
     this.settings = [this.v00, this.v10, this.v20, this.v30, this.v35, this.v40, this.v45, this.v50, this.v55,
         this.v60, this.v65, this.v70, this.v75, this.v80, this.v90, this.v100];
 
@@ -113,6 +141,47 @@ Setting.prototype.init = function(arrayBuffer){
             self.value = e;
         }
     });
+};
+Setting.prototype.setValue = function(val){
+    var self = this;
+    this.settings.forEach(function(s){
+        if(s.display == val){
+            self.value = s;
+        }
+    });
+    //if(val == this.v00.display){
+    //    this.value = this.v00;
+    //} else if(val == this.v10.display){
+    //    this.value = this.v10;
+    //} else if(val == this.v20.display){
+    //    this.value = this.v20;
+    //} else if(val == this.v30.display){
+    //    this.value = this.v30;
+    //} else if(val == this.v35.display){
+    //    this.value = this.v35;
+    //} else if(val == this.v40.display){
+    //    this.value = this.v40;
+    //} else if(val == this.v45.display){
+    //    this.value = this.v45;
+    //} else if(val == this.v50.display){
+    //    this.value = this.v50;
+    //} else if(val == this.v55.display){
+    //    this.value = this.v55;
+    //} else if(val == this.v60.display){
+    //    this.value = this.v60;
+    //} else if(val == this.v65.display){
+    //    this.value = this.v65;
+    //} else if(val == this.v70.display){
+    //    this.value = this.v70;
+    //} else if(val == this.v75.display){
+    //    this.value = this.v75;
+    //} else if(val == this.v80.display){
+    //    this.value = this.v80;
+    //} else if(val == this.v90.display){
+    //    this.value = this.v90;
+    //} else if(val == this.v100.display){
+    //    this.value = this.v100;
+    //}
 };
 
 var Preset = function(){
