@@ -127,7 +127,7 @@ var Setting = function(offset){
         this.v60, this.v65, this.v70, this.v75, this.v80, this.v90, this.v100];
 
     this.offset = offset;
-    this.value = self.v00;
+    this.value = this.v00;
 };
 Setting.prototype.compile = function(){
     return this.value.value;
@@ -149,39 +149,6 @@ Setting.prototype.setValue = function(val){
             self.value = s;
         }
     });
-    //if(val == this.v00.display){
-    //    this.value = this.v00;
-    //} else if(val == this.v10.display){
-    //    this.value = this.v10;
-    //} else if(val == this.v20.display){
-    //    this.value = this.v20;
-    //} else if(val == this.v30.display){
-    //    this.value = this.v30;
-    //} else if(val == this.v35.display){
-    //    this.value = this.v35;
-    //} else if(val == this.v40.display){
-    //    this.value = this.v40;
-    //} else if(val == this.v45.display){
-    //    this.value = this.v45;
-    //} else if(val == this.v50.display){
-    //    this.value = this.v50;
-    //} else if(val == this.v55.display){
-    //    this.value = this.v55;
-    //} else if(val == this.v60.display){
-    //    this.value = this.v60;
-    //} else if(val == this.v65.display){
-    //    this.value = this.v65;
-    //} else if(val == this.v70.display){
-    //    this.value = this.v70;
-    //} else if(val == this.v75.display){
-    //    this.value = this.v75;
-    //} else if(val == this.v80.display){
-    //    this.value = this.v80;
-    //} else if(val == this.v90.display){
-    //    this.value = this.v90;
-    //} else if(val == this.v100.display){
-    //    this.value = this.v100;
-    //}
 };
 
 var Preset = function(){
@@ -231,6 +198,7 @@ var TriAxisSysEx = function(){
     this.sysEx = new DataView(new ArrayBuffer(SYSEX_NUM_BYTES));
     this.presets = [];
     this.programs = [];
+    this.controllers = [];
 
     for(var i = 0; i < NUM_PRESETS; i++){
         this.presets[i] = new Preset();
@@ -255,6 +223,16 @@ TriAxisSysEx.prototype.init = function(arrayBuffer){
         this.programs[i].init(arrayBuffer.slice(begin, end));
     }
 
+    // Copy controllers region
+    var begin = CONTROLLERS_OFFSET;
+    var end = begin + CONTROLLER_WIDTH;
+
+    var view = new DataView(arrayBuffer.slice(begin, end));
+
+    for(var i = 0; i < view.byteLength; i++){
+        this.controllers[i] = view.getUint8(i);
+    }
+
 };
 
 TriAxisSysEx.prototype.compile = function(){
@@ -276,6 +254,10 @@ TriAxisSysEx.prototype.compile = function(){
         b.forEach(function(e, i){
             self.sysEx.setUint8(PROGRAM_OFFSET + (index*PROGRAM_BYTES) + i, e);
         });
+    });
+
+    self.controllers.forEach(function(e, i){
+        self.sysEx.setUint8(CONTROLLERS_OFFSET + i, e);
     });
 
     TERMINATOR.forEach(function(e, i){

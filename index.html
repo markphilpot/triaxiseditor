@@ -9,12 +9,30 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
-        <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
+        <link href='http://fonts.googleapis.com/css?family=Cinzel' rel='stylesheet' type='text/css'>
+
+        <!--<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">-->
+        <!--<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css">-->
+        <link rel="stylesheet" href="css/bootstrap-slate.min.css">
         <link rel="stylesheet" href="css/main.css">
     </head>
     <body>
+        <div id="logo">
+            <p>TriAxis Editor</p>
+        </div>
 
+        <div id="triaxis_wrapper">
+            <div id="triaxis"></div>
+            <button id="download" class="btn btn-default" type="button">Download .syx</button>
+        </div>
+
+
+
+        <div id="drop">
+            <div id="drop_zone">Drop .syx file here</div>
+        </div>
+
+        <div id="about"></div>
 
         <script src="bower_components/jquery/dist/jquery.min.js"></script>
         <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>

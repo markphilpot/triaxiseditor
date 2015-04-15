@@ -8,6 +8,16 @@
     border-radius: 5px;
     padding: 25px;
     text-align: center;
+    width: 40%;
+    margin: 0 auto;
+}
+
+#triaxis_wrapper {
+    text-align: center;
+}
+
+#download {
+    margin-bottom: 20px;
 }
 
 #triaxis {
@@ -16,7 +26,9 @@
     background-image: url("../img/triaxis_base.jpg");
     position: relative;
     margin: 0 auto;
+    margin-bottom: 10px;
 }
+
 
 .component:hover {
     cursor: pointer;
@@ -195,4 +207,10 @@
 #fx {
     top: 100px;
     right: 97px;
+}
+
+#logo p {
+    font-family: 'Cinzel', serif;
+    font-size: 4em;
+    text-align: center;
 }

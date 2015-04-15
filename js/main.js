@@ -3,25 +3,9 @@ var ta = new TriAxisSysEx();
 $(function(){
     $.event.props.push('dataTransfer');
 
-    //$("#file").change(function(e){
-    //    var f = e.target.files[0];
-    //
-    //    var reader = new FileReader();
-    //
-    //    reader.onloadend = function(){
-    //        var ta = new TriAxisSysEx();
-    //        ta.init(reader.result);
-    //
-    //        ta.download();
-    //        //ta.compile();
-    //    };
-    //    reader.readAsArrayBuffer(f);
-    //
-    //
-    //
-    //});
+    render();
 
-    var $drop = $('<div id="drop_zone">Drop .syx file here</div>').appendTo($("body"));
+    var $drop = $("#drop_zone");
 
     $drop.bind('dragover', function(e){
         e.stopPropagation();
@@ -40,11 +24,15 @@ $(function(){
         reader.onloadend = function(){
             ta.init(reader.result);
 
-            $drop.remove();
+            $("#triaxis").html();
 
             render();
         };
         reader.readAsArrayBuffer(f);
+    });
+
+    $('#download').click(function(){
+        ta.download();
     });
 
 });
@@ -52,7 +40,7 @@ $(function(){
 function render(){
     var currentPreset = 0;
 
-    var $base = $('<div id="triaxis"></div>').appendTo($("body"));
+    var $base = $('#triaxis');
     var $preset = $('<div id="preset" class="component"></div>').appendTo($base);
 
     $preset.click(function(){
