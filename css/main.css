@@ -1,0 +1,76 @@
+@font-face {
+    font-family: "DigitalDisplay";
+    src: url('../fonts/digital_display_tfb/digital_display_tfb.ttf') format('truetype');
+}
+
+#drop_zone {
+    border: 2px dashed #bbb;
+    border-radius: 5px;
+    padding: 25px;
+    text-align: center;
+}
+
+#triaxis {
+    width: 1270px;
+    height: 122px;
+    background-image: url("../img/triaxis_base.jpg");
+    position: relative;
+    margin: 0 auto;
+}
+
+.component:hover {
+    cursor: pointer;
+}
+
+.component {
+    border: 1px solid #fff;
+    position: absolute;
+    font-family: "DigitalDisplay", monospace;
+    font-size: 3.5em;
+    color: red;
+    text-align: right;
+    width: 58px;
+    height: 42px;
+    top: 16px;
+}
+
+.lcd {
+    position: relative;
+    top: -15px;
+    right: 5px;
+}
+
+#preset {
+    left: 70px;
+}
+
+#gain {
+    left: 260px;
+}
+
+.tube {
+    border: 1px solid #fff;
+    border-radius: 5px;
+    position: absolute;
+    width: 10px;
+    height: 10px;
+}
+.tube:hover {
+    cursor: pointer;
+}
+
+#tube_rhyGreen {
+    top: 12px;
+    right: 140px;
+}
+#tube_rhyGreen.selected {
+    background-color: greenyellow;
+}
+
+#tube_rhyYellow {
+    top: 12px;
+    right: 126px;
+}
+#tube_rhyYellow.selected {
+    background-color: #ffff00;
+}
