@@ -24,7 +24,7 @@ $(function(){
         reader.onloadend = function(){
             ta.init(reader.result);
 
-            $("#triaxis").html();
+            $("#triaxis").html("");
 
             render();
         };
@@ -39,23 +39,68 @@ $(function(){
 
 function render(){
     var currentPreset = 0;
+    var currentProgram = -1;
 
     var $base = $('#triaxis');
     var $preset = $('<div id="preset" class="component"></div>').appendTo($base);
 
     $preset.click(function(){
-        if($preset.find('select').length){
+
+        if($base.find('.dropdown').length){
+            $base.find('.dropdown').remove();
             return;
         }
-        var $sel = $('<select class="form-control"></select>').appendTo($preset);
+
+        var $wrapper = $('<div class="dropdown"/>').appendTo($base);
+
+        var pos = $preset.position();
+
+        $wrapper.css({'top': pos.top+$preset.height(), 'left': pos.left, 'width': $preset.width()});
+
         for(var i = 0; i < NUM_PRESETS; i++){
-            $(sprintf('<option value="%d" %s>%d</option>', i, currentPreset == i ? "selected": "", i+1)).appendTo($sel);
+            $(sprintf('<div class="dropdown_value %s" value="%d">%d</div>', currentPreset == i ? 'selected"': "", i, i+1)).appendTo($wrapper);
         }
-        $sel.change(function(){
-            var val = $(this).val();
-            console.log(val);
+
+        $('.dropdown_value').click(function(){
+            var val = $(this).attr('value');
             currentPreset = 1*val;
-            $sel.remove();
+            if(currentProgram != -1){
+                ta.programs[currentProgram].value = currentPreset;
+            }
+            $wrapper.remove();
+            renderPreset(currentPreset);
+        });
+    });
+
+    var $program = $('<div id="program" class="program component"></div>').appendTo($base);
+    $program.html($('<div class="lcd"/>').html(currentProgram != -1 ? currentProgram+1 : "---"));
+
+    $program.click(function(){
+
+        if($base.find('.dropdown').length){
+            $base.find('.dropdown').remove();
+            return;
+        }
+
+        var $wrapper = $('<div class="dropdown"/>').appendTo($base);
+
+        var pos = $program.position();
+
+        $wrapper.css({'top': pos.top+$program.height(), 'left': pos.left, 'width': $program.width()});
+
+        $(sprintf('<div class="dropdown_value %s" value="-1">---</div>', currentProgram == -1 ? 'selected"': "")).appendTo($wrapper);
+        for(var i = 0; i < NUM_PROGRAMS; i++){
+            $(sprintf('<div class="dropdown_value %s" value="%d">%d</div>', currentProgram == i ? 'selected"': "", i, i+1)).appendTo($wrapper);
+        }
+
+        $('.dropdown_value').click(function(){
+            var val = $(this).attr('value');
+            currentProgram = 1*val;
+            if(currentProgram != -1){
+                currentPreset = ta.programs[currentProgram].value;
+            }
+            $wrapper.remove();
+            $program.html($('<div class="lcd"/>').html(currentProgram != -1 ? currentProgram+1 : "---"));
             renderPreset(currentPreset);
         });
     });
@@ -72,21 +117,29 @@ function render(){
 
     $('.knobs').click(function(){
         var $this = $(this);
-        if($this.find('select').length){
+
+        if($base.find('.dropdown').length){
+            $base.find('.dropdown').remove();
             return;
         }
 
-        var $sel = $('<select class="form-control"></select>').appendTo($this);
+        var $wrapper = $('<div class="dropdown"/>').appendTo($base);
+
+        var pos = $this.position();
+
+        $wrapper.css({'top': pos.top+$this.height(), 'left': pos.left, 'width': $this.width()});
+
         var setting = new Setting(0);
         for(var i = 0; i < setting.settings.length; i++){
-            $(sprintf('<option value="%s" %s>%s</option>',
-                setting.settings[i].display,
+            $(sprintf('<div class="dropdown_value %s" value="%s">%s</div>',
                 ta.presets[currentPreset].components[$this.attr('data-knob')].value.display == setting.settings[i].display ? "selected" : "",
-                setting.settings[i].display)).appendTo($sel);
+                setting.settings[i].display,
+                setting.settings[i].display)).appendTo($wrapper);
         }
-        $sel.change(function(){
-            var val = $(this).val();
-            $sel.remove();
+
+        $('.dropdown_value').click(function(){
+            var val = $(this).attr('value');
+            $wrapper.remove();
             ta.presets[currentPreset].components[$this.attr('data-knob')].setValue(val);
             renderPreset(currentPreset);
         });

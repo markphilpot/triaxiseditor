@@ -211,25 +211,27 @@ var TriAxisSysEx = function(){
 
 TriAxisSysEx.prototype.init = function(arrayBuffer){
 
-    for(var i = 0; i < NUM_PRESETS; i++){
-        var begin = PRESET_OFFSET + (i*PRESET_BYTES);
-        var end = begin + PRESET_BYTES;
+    var i, begin, end;
+
+    for(i = 0; i < NUM_PRESETS; i++){
+        begin = PRESET_OFFSET + (i*PRESET_BYTES);
+        end = begin + PRESET_BYTES;
         this.presets[i].init(arrayBuffer.slice(begin, end));
     }
 
-    for(var i = 0; i < NUM_PROGRAMS; i++){
-        var begin = PROGRAM_OFFSET + (i*PROGRAM_BYTES);
-        var end = begin + PROGRAM_BYTES;
+    for(i = 0; i < NUM_PROGRAMS; i++){
+        begin = PROGRAM_OFFSET + (i*PROGRAM_BYTES);
+        end = begin + PROGRAM_BYTES;
         this.programs[i].init(arrayBuffer.slice(begin, end));
     }
 
     // Copy controllers region
-    var begin = CONTROLLERS_OFFSET;
-    var end = begin + CONTROLLER_WIDTH;
+    begin = CONTROLLERS_OFFSET;
+    end = begin + CONTROLLER_WIDTH;
 
     var view = new DataView(arrayBuffer.slice(begin, end));
 
-    for(var i = 0; i < view.byteLength; i++){
+    for(i = 0; i < view.byteLength; i++){
         this.controllers[i] = view.getUint8(i);
     }
 

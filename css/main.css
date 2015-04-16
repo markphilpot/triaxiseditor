@@ -56,6 +56,12 @@
     left: 70px;
 }
 
+#program {
+    left: 150px;
+    width: 90px;
+    color: greenyellow;
+}
+
 #gain {
     left: 260px;
 }
@@ -170,7 +176,7 @@
     cursor: pointer;
 }
 .switch.selected {
-    background-color: greenyellow;
+    background-color: red;
 }
 
 #switch1 {
@@ -213,4 +219,20 @@
     font-family: 'Cinzel', serif;
     font-size: 4em;
     text-align: center;
+}
+
+.dropdown {
+    background-color: lightgrey;
+    max-height: 400px;
+    overflow-y: auto;
+    position: relative;
+    color: #000;
+}
+
+.dropdown_value.selected {
+    background-color: #fff;
+}
+.dropdown_value:hover {
+    cursor: pointer;
+    background-color: #eee;
 }
