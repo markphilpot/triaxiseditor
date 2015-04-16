@@ -9,10 +9,28 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
+        <link rel="apple-touch-icon" sizes="57x57" href="/icons/apple-touch-icon-57x57.png">
+        <link rel="apple-touch-icon" sizes="60x60" href="/icons/apple-touch-icon-60x60.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="/icons/apple-touch-icon-72x72.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="/icons/apple-touch-icon-76x76.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="/icons/apple-touch-icon-114x114.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="/icons/apple-touch-icon-120x120.png">
+        <link rel="apple-touch-icon" sizes="144x144" href="/icons/apple-touch-icon-144x144.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="/icons/apple-touch-icon-152x152.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon-180x180.png">
+        <link rel="icon" type="image/png" href="/icons/favicon-32x32.png" sizes="32x32">
+        <link rel="icon" type="image/png" href="/icons/android-chrome-192x192.png" sizes="192x192">
+        <link rel="icon" type="image/png" href="/icons/favicon-96x96.png" sizes="96x96">
+        <link rel="icon" type="image/png" href="/icons/favicon-16x16.png" sizes="16x16">
+        <link rel="manifest" href="/icons/manifest.json">
+        <link rel="shortcut icon" href="/icons/favicon.ico">
+        <meta name="msapplication-TileColor" content="#da532c">
+        <meta name="msapplication-TileImage" content="/icons/mstile-144x144.png">
+        <meta name="msapplication-config" content="/icons/browserconfig.xml">
+        <meta name="theme-color" content="#ffffff">
+
         <link href='http://fonts.googleapis.com/css?family=Cinzel' rel='stylesheet' type='text/css'>
 
-        <!--<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">-->
-        <!--<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css">-->
         <link rel="stylesheet" href="css/bootstrap-slate.min.css">
         <link rel="stylesheet" href="css/main.css">
     </head>
@@ -26,13 +44,39 @@
             <button id="download" class="btn btn-default" type="button">Download .syx</button>
         </div>
 
-
-
         <div id="drop">
             <div id="drop_zone">Drop .syx file here</div>
         </div>
 
-        <div id="about"></div>
+        <div id="about">
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-4">
+                    <h1>About</h1>
+                    <p>The only preset editor (that I'm aware of) was the one done by <a href="http://www.tonymckenzie.com/triaxis_downloads.htm">Tony McKenzie</a>.
+                       The problem is the software only works on 32-bit Windows, so is essentially dead. This project is an attempt
+                       at reverse engineering the TriAxis syx dump format, which should make customizing the TriAxis much easier.</p>
+                    <h1>Contact</h1>
+                    <p>If you find this useful, drop me a note on <a href="https://twitter.com/mark_philpot">Twitter</a> and let me know.</p>
+                    <p>The source code is available <a href="https://github.com/griphiam/triaxiseditor">here</a> on Github. If you find any bugs, please file an issue.</p>
+                </div>
+                <div class="col-md-4">
+                    <h1>Instructions</h1>
+                    <p>To customize presets, set Program to "---" and change as desired.</p>
+                    <p>To assign a preset to a program, first select the program, and then change the preset</p>
+                    <p>To customize an existing TriAxis configuration, perform a syx dump of your TriAxis and then drag and drop
+                        the syx file to the drop zone. Click the Download button to get the syx file when you're done</p>
+                    <p>If you would like to use save files from <a href="http://www.tonymckenzie.com/triaxis_downloads.htm">Tony McKenzie's</a> editor you can run the following
+                       code to extract the syx (on a Mac or Linux machine)</p>
+                    <pre>head -c 2746 my_presets.tri > my_presets.syx</pre>
+                    <h1>Disclaimers</h1>
+                    <p>I don't currently have a way to test the controller configuration of the TriAxis. The controller region of the syx
+                        file should be preserved when editing however.</p>
+                    <p><em>Always</em> have backups of your configurations. Use at your own discretion.</p>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+        </div>
 
         <script src="bower_components/jquery/dist/jquery.min.js"></script>
         <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>

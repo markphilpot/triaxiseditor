@@ -236,3 +236,7 @@
     cursor: pointer;
     background-color: #eee;
 }
+
+#about {
+    margin-top: 20px;
+}
