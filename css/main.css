@@ -227,6 +227,7 @@
     overflow-y: auto;
     position: relative;
     color: #000;
+    z-index: 999;
 }
 
 .dropdown_value.selected {

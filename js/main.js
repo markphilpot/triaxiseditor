@@ -55,7 +55,7 @@ function render(){
 
         var pos = $preset.position();
 
-        $wrapper.css({'top': pos.top+$preset.height(), 'left': pos.left, 'width': $preset.width()});
+        $wrapper.css({'top': pos.top+$preset.height(), 'left': pos.left, 'width': $preset.width()+2});
 
         for(var i = 0; i < NUM_PRESETS; i++){
             $(sprintf('<div class="dropdown_value %s" value="%d">%d</div>', currentPreset == i ? 'selected"': "", i, i+1)).appendTo($wrapper);
@@ -86,7 +86,7 @@ function render(){
 
         var pos = $program.position();
 
-        $wrapper.css({'top': pos.top+$program.height(), 'left': pos.left, 'width': $program.width()});
+        $wrapper.css({'top': pos.top+$program.height(), 'left': pos.left, 'width': $program.width()+2});
 
         $(sprintf('<div class="dropdown_value %s" value="-1">---</div>', currentProgram == -1 ? 'selected"': "")).appendTo($wrapper);
         for(var i = 0; i < NUM_PROGRAMS; i++){
@@ -127,7 +127,7 @@ function render(){
 
         var pos = $this.position();
 
-        $wrapper.css({'top': pos.top+$this.height(), 'left': pos.left, 'width': $this.width()});
+        $wrapper.css({'top': pos.top+$this.height(), 'left': pos.left, 'width': $this.width()+2});
 
         var setting = new Setting(0);
         for(var i = 0; i < setting.settings.length; i++){
