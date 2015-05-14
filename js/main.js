@@ -35,6 +35,180 @@ $(function(){
         ta.download();
     });
 
+    $('#preset-matrix').click(function(){
+        var $dialog = $('<div class="matrix"/>').appendTo($('body'));
+
+        var $table = $('<table/>').appendTo($dialog);
+
+        var dt = $table.DataTable({
+            paging: false,
+            info: false,
+            searching: false,
+            scrollY: "100%",
+            columns: [
+                {title: 'Preset'},
+                {title: 'Gain'},
+                {title: 'Treble'},
+                {title: 'Middle'},
+                {title: 'Bass'},
+                {title: 'L1 Drive'},
+                {title: 'L2 Drive'},
+                {title: 'Master'},
+                {title: 'Presence'},
+                {title: 'Dyn Voice'},
+                {title: 'Tube'},
+                {title: 'S1'},
+                {title: 'S2'},
+                {title: 'S3'},
+                {title: 'S4'},
+                {title: 'FX Loop'}
+            ]
+        });
+
+        for(var i = 0; i < NUM_PRESETS; i++){
+            dt.row.add([
+                i+1,
+                ta.presets[i].components.gain.value.display,
+                ta.presets[i].components.treble.value.display,
+                ta.presets[i].components.middle.value.display,
+                ta.presets[i].components.bass.value.display,
+                ta.presets[i].components.lead1Drive.value.display,
+                ta.presets[i].components.lead2Drive.value.display,
+                ta.presets[i].components.master.value.display,
+                ta.presets[i].components.presence.value.display,
+                ta.presets[i].components.dVoice.value.display,
+                ta.presets[i].components.tube.value.display,
+                ta.presets[i].components.fxSwitches.switch1Value == 0 ? "Off" : "On",
+                ta.presets[i].components.fxSwitches.switch2Value == 0 ? "Off" : "On",
+                ta.presets[i].components.fxSwitches.switch3Value == 0 ? "Off" : "On",
+                ta.presets[i].components.fxSwitches.switch4Value == 0 ? "Off" : "On",
+                ta.presets[i].components.fxSwitches.fxValue == 0 ? "Off" : "On"
+            ]);
+        }
+
+        dt.draw();
+
+        $table.find('tbody').on('click', 'td', function(){
+            var cell = dt.cell(this);
+            var $this = $(cell.node());
+
+            var currentPreset = cell.index().row;
+
+            var knobs = ["", "gain", "treble", "middle", "bass", "lead1Drive", "lead2Drive", "master", "presence", "dVoice"];
+
+            var knob = knobs[cell.index().column];
+
+            if(cell.index().column > 0 && cell.index().column < 10){
+
+                if($dialog.find('.dropdown').length){
+                    $dialog.find('.dropdown').remove();
+                    return;
+                }
+
+                var $wrapper = $('<div class="dropdown"/>').appendTo($dialog);
+
+                var pos = $this.position();
+
+                //$wrapper.css({'top': pos.top+$this.height(), 'left': pos.left, 'width': $this.width()+2});
+                $wrapper.css({'top': pos.top+$this.height(), 'left': pos.left});
+
+                var setting = new Setting(0);
+                for(var i = 0; i < setting.settings.length; i++){
+                    $(sprintf('<div class="dropdown_value %s" value="%s">%s</div>',
+                        ta.presets[currentPreset].components[knob].value.display == setting.settings[i].display ? "selected" : "",
+                        setting.settings[i].display,
+                        setting.settings[i].display)).appendTo($wrapper);
+                }
+
+                $('.dropdown_value').click(function(){
+                    var val = $(this).attr('value');
+                    $wrapper.remove();
+                    ta.presets[currentPreset].components[knob].setValue(val);
+                    cell.data(ta.presets[currentPreset].components[knob].value.display);
+                });
+            } else if(cell.index().column == 10){
+                // Tube
+                if($dialog.find('.dropdown').length){
+                    $dialog.find('.dropdown').remove();
+                    return;
+                }
+
+                var $wrapper = $('<div class="dropdown"/>').appendTo($dialog);
+
+                var pos = $this.position();
+
+                //$wrapper.css({'top': pos.top+$this.height(), 'left': pos.left, 'width': $this.width()+2});
+                $wrapper.css({'top': pos.top+$this.height(), 'left': pos.left});
+
+                var setting = new Tube(0);
+                for(var i = 0; i < setting.settings.length; i++){
+                    $(sprintf('<div class="dropdown_value %s" value="%s">%s</div>',
+                        ta.presets[currentPreset].components.tube.value.display == setting.settings[i].display ? "selected" : "",
+                        setting.settings[i].display,
+                        setting.settings[i].display)).appendTo($wrapper);
+                }
+
+                $('.dropdown_value').click(function(){
+                    var val = $(this).attr('value');
+                    $wrapper.remove();
+                    ta.presets[currentPreset].components.tube.setValue(val);
+                    cell.data(ta.presets[currentPreset].components.tube.value.display);
+                });
+            } else if(cell.index().column > 10 && cell.index().column < 15){
+                // Switches
+                var sw = cell.index().column - 10;
+
+                var s = new FxSwitches();
+
+                if(sw == 1){
+                    ta.presets[currentPreset].components.fxSwitches.switch1Value = (cell.data() == "On") ? s.SW_OFF : s.SW1;
+                    cell.data(ta.presets[currentPreset].components.fxSwitches.switch1Value == s.SW_OFF ? "Off" : "On");
+                } else if(sw == 2){
+                    ta.presets[currentPreset].components.fxSwitches.switch2Value = (cell.data() == "On") ? s.SW_OFF : s.SW2;
+                    cell.data(ta.presets[currentPreset].components.fxSwitches.switch2Value == s.SW_OFF ? "Off" : "On");
+                } else if(sw == 3){
+                    ta.presets[currentPreset].components.fxSwitches.switch3Value = (cell.data() == "On") ? s.SW_OFF : s.SW3;
+                    cell.data(ta.presets[currentPreset].components.fxSwitches.switch3Value == s.SW_OFF ? "Off" : "On");
+                } else if(sw == 4){
+                    ta.presets[currentPreset].components.fxSwitches.switch4Value = (cell.data() == "On") ? s.SW_OFF : s.SW4;
+                    cell.data(ta.presets[currentPreset].components.fxSwitches.switch4Value == s.SW_OFF ? "Off" : "On");
+                }
+            } else if(cell.index().column == 15){
+                // FX
+                ta.presets[currentPreset].components.fxSwitches.fxValue = (cell.data() == "On") ? 0 : 1;
+                cell.data(ta.presets[currentPreset].components.fxSwitches.fxValue == 0 ? "Off" : "On");
+            }
+
+        });
+
+        $dialog.on('dialogopen dialogresize', function(e){
+            dt.columns.adjust().draw();
+        });
+
+        $dialog.dialog({
+            title: 'Preset Matrix',
+            autoOpen: true,
+            closeOnEscape: true,
+            width: '90%',
+            height: 600,
+            buttons: [
+                {
+                    text: "Close",
+                    click: function(){
+
+                        $dialog.dialog('close');
+
+                    }
+                }
+            ]
+        });
+
+        $dialog.on('dialogclose', function(e){
+            $dialog.remove();
+            $(document).trigger('matrix:change', [{}]);
+        });
+    });
+
 });
 
 function render(){
@@ -219,6 +393,10 @@ function render(){
             $fx.addClass('selected');
         }
     };
+
+    $(document).on('matrix:change', function(data){
+        renderPreset(currentPreset);
+    });
 
     renderPreset(currentPreset);
 }
