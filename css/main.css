@@ -254,3 +254,11 @@
 .matrix table {
     background-color: #fff;
 }
+
+.matrix table td:not(:first-of-type) {
+    cursor: pointer;
+}
+
+.ui-dialog-titlebar-close {
+  visibility: hidden;
+}

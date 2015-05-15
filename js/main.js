@@ -40,6 +40,9 @@ $(function(){
 
         var $table = $('<table/>').appendTo($dialog);
 
+        var OFF = "";
+        var ON = "On";
+
         var dt = $table.DataTable({
             paging: false,
             info: false,
@@ -78,11 +81,11 @@ $(function(){
                 ta.presets[i].components.presence.value.display,
                 ta.presets[i].components.dVoice.value.display,
                 ta.presets[i].components.tube.value.display,
-                ta.presets[i].components.fxSwitches.switch1Value == 0 ? "Off" : "On",
-                ta.presets[i].components.fxSwitches.switch2Value == 0 ? "Off" : "On",
-                ta.presets[i].components.fxSwitches.switch3Value == 0 ? "Off" : "On",
-                ta.presets[i].components.fxSwitches.switch4Value == 0 ? "Off" : "On",
-                ta.presets[i].components.fxSwitches.fxValue == 0 ? "Off" : "On"
+                ta.presets[i].components.fxSwitches.switch1Value == 0 ? OFF : ON,
+                ta.presets[i].components.fxSwitches.switch2Value == 0 ? OFF : ON,
+                ta.presets[i].components.fxSwitches.switch3Value == 0 ? OFF : ON,
+                ta.presets[i].components.fxSwitches.switch4Value == 0 ? OFF : ON,
+                ta.presets[i].components.fxSwitches.fxValue == 0 ? OFF : ON
             ]);
         }
 
@@ -161,22 +164,22 @@ $(function(){
                 var s = new FxSwitches();
 
                 if(sw == 1){
-                    ta.presets[currentPreset].components.fxSwitches.switch1Value = (cell.data() == "On") ? s.SW_OFF : s.SW1;
-                    cell.data(ta.presets[currentPreset].components.fxSwitches.switch1Value == s.SW_OFF ? "Off" : "On");
+                    ta.presets[currentPreset].components.fxSwitches.switch1Value = (cell.data() == ON) ? s.SW_OFF : s.SW1;
+                    cell.data(ta.presets[currentPreset].components.fxSwitches.switch1Value == s.SW_OFF ? OFF : ON);
                 } else if(sw == 2){
-                    ta.presets[currentPreset].components.fxSwitches.switch2Value = (cell.data() == "On") ? s.SW_OFF : s.SW2;
-                    cell.data(ta.presets[currentPreset].components.fxSwitches.switch2Value == s.SW_OFF ? "Off" : "On");
+                    ta.presets[currentPreset].components.fxSwitches.switch2Value = (cell.data() == ON) ? s.SW_OFF : s.SW2;
+                    cell.data(ta.presets[currentPreset].components.fxSwitches.switch2Value == s.SW_OFF ? OFF : ON);
                 } else if(sw == 3){
-                    ta.presets[currentPreset].components.fxSwitches.switch3Value = (cell.data() == "On") ? s.SW_OFF : s.SW3;
-                    cell.data(ta.presets[currentPreset].components.fxSwitches.switch3Value == s.SW_OFF ? "Off" : "On");
+                    ta.presets[currentPreset].components.fxSwitches.switch3Value = (cell.data() == ON) ? s.SW_OFF : s.SW3;
+                    cell.data(ta.presets[currentPreset].components.fxSwitches.switch3Value == s.SW_OFF ? OFF : ON);
                 } else if(sw == 4){
-                    ta.presets[currentPreset].components.fxSwitches.switch4Value = (cell.data() == "On") ? s.SW_OFF : s.SW4;
-                    cell.data(ta.presets[currentPreset].components.fxSwitches.switch4Value == s.SW_OFF ? "Off" : "On");
+                    ta.presets[currentPreset].components.fxSwitches.switch4Value = (cell.data() == ON) ? s.SW_OFF : s.SW4;
+                    cell.data(ta.presets[currentPreset].components.fxSwitches.switch4Value == s.SW_OFF ? OFF : ON);
                 }
             } else if(cell.index().column == 15){
                 // FX
-                ta.presets[currentPreset].components.fxSwitches.fxValue = (cell.data() == "On") ? 0 : 1;
-                cell.data(ta.presets[currentPreset].components.fxSwitches.fxValue == 0 ? "Off" : "On");
+                ta.presets[currentPreset].components.fxSwitches.fxValue = (cell.data() == ON) ? 0 : 1;
+                cell.data(ta.presets[currentPreset].components.fxSwitches.fxValue == 0 ? OFF : ON);
             }
 
         });
