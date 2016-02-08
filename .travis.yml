@@ -5,6 +5,7 @@ before_install:
   - "npm install -g bower"
 install:
   - "bower install"
+script: "echo NOOP"
 deploy:
   provider: s3
   access_key_id: $AWS_ACCESS_KEY # Env
